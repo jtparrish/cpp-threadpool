@@ -1,5 +1,5 @@
 CXXFLAGS = -g -Wall -pthread
-threadpool_test: threadpool_test.o threadpool.o
+threadpool_test: threadpool_test.o threadpool.o call_class.o
 	g++ $(CXXFLAGS) -o $@ $^
 
 .PHONY: clean
