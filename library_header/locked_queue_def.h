@@ -18,7 +18,7 @@ class locked_queue {
             private:
                 lq_accessor(mutex &raw_lock, condition_variable &cond_arg, queue<T> &q);
 
-            friend class locked_queue;
+            friend class locked_queue; // to make instantiable only in containing class
         };
 
         lq_accessor get_access(void);

@@ -22,7 +22,13 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 
 threadpool_test: $(OBJ) $(patsubst %,$(ODIR)/%,threadpool_test.o)
-	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
+	$(CXX) $(CXXFLAGS) $(LIBS) -o $@.run $^
+
+return_value_test: $(OBJ) $(patsubst %,$(ODIR)/%,return_value_test.o)
+	$(CXX) $(CXXFLAGS) $(LIBS) -o $@.run $^
+
+res_queue_test: $(OBJ) $(patsubst %,$(ODIR)/%,res_queue_test.o)
+	$(CXX) $(CXXFLAGS) $(LIBS) -o $@.run $^
 
 $(ODIR)/%.o: %.cc $(DEPS)
 	$(CXX) -c $(CXXFLAGS) -o $@ $<
@@ -31,3 +37,4 @@ $(ODIR)/%.o: %.cc $(DEPS)
 
 clean:
 	rm -f $(ODIR)/*.o
+	rm -f *.run

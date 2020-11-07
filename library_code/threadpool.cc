@@ -1,7 +1,6 @@
 #include "threadpool.h"
 #include "tp_callable.h"
 #include "call_class.h"
-// #include "server.h"
 
 template <class T>
 void thread_fn(lq_accessor<T> job_q, bool &running) {
@@ -25,9 +24,9 @@ void thread_fn(lq_accessor<T> job_q, bool &running) {
 
 template <class T>
 threadpool<T>::threadpool(unsigned int n_threads) : jq_access(job_q.get_access()) {
+    pool.resize(n_threads); // NECESSARY TO AVOID INVALID REFERENCES DUE TO RESIZE
     for (unsigned int i = 0; i < n_threads; i++) {
-        switched_thread st(thread(thread_fn<T>, job_q.get_access(), std::ref(st.switch_bool)));
-        pool.push_back(std::move(st));
+        pool[i] = switched_thread( std::move(thread(thread_fn<T>, job_q.get_access(), std::ref(pool[i].switch_bool))) );
     }
 }
 
@@ -46,11 +45,10 @@ void threadpool<T>::finalize() {
         pool[i].switch_bool = false;
     }
     jq_access.lock.unlock();
-
     jq_access.cond.notify_all();
 }
 template <class T>
-threadpool<T>::~threadpool() { //FIXME unnecessary
+threadpool<T>::~threadpool() {
     finalize();
 }
 

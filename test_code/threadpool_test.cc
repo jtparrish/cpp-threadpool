@@ -5,12 +5,13 @@
 // #include <string>
 
 #define NUM_THREADS 8
+#define NUM_TASKS (2 * NUM_THREADS)
 
 using std::cout;
 
 int main(void) {
     threadpool<tp_callable_wrapper> tp(NUM_THREADS);
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < NUM_TASKS; i++) {
         cout << ("queuing job: " + std::to_string(i) + "\n");
         tp.queue_job(tp_callable_wrapper(new call_class(i), true));
     }

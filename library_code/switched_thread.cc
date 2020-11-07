@@ -1,5 +1,7 @@
 #include "switched_thread.h"
 
+switched_thread::switched_thread() {}
+
 switched_thread::switched_thread(thread t_arg) : dead(false), t(std::move(t_arg)), switch_bool(true) {}
 
 // Move Constructor

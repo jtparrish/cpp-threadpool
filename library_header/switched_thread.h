@@ -16,6 +16,8 @@ struct switched_thread {
 
     // https://thispointer.com/c11-how-to-use-stdthread-as-a-member-variable-in-class/
 
+    switched_thread(void);
+
     //Delete the copy constructor
     switched_thread(const switched_thread&) = delete;
 
