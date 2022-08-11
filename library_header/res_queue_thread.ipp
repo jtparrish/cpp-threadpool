@@ -59,7 +59,7 @@ template <class T>
 result_queue<T>::rq_infinite_wait_exception::rq_infinite_wait_exception(void) {}
 
 template <class T>
-const char *result_queue<T>::rq_infinite_wait_exception::what() const throw () {
+const char *result_queue<T>::rq_infinite_wait_exception::what() const noexcept(true) {
     return "tried to get a result from a result_queue which has no more results and no more"
     "jobs to complete running; this will lead to an infinite wait";
 }
