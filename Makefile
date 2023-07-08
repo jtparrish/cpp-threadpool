@@ -14,7 +14,7 @@ LIBS= -pthread
 _DEPS = $(shell ls library_header)
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = threadpool.o call_class.o switched_thread.o tp_callable.o 
+_OBJ = call_class.o switched_thread.o tp_callable.o 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 
@@ -22,6 +22,9 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 
 threadpool_test: $(OBJ) $(patsubst %,$(ODIR)/%,threadpool_test.o)
+	$(CXX) $(CXXFLAGS) $(LIBS) -o $@.run $^
+
+threadpool_test_nowrap: $(OBJ) $(patsubst %,$(ODIR)/%,threadpool_test_nowrap.o)
 	$(CXX) $(CXXFLAGS) $(LIBS) -o $@.run $^
 
 return_value_test: $(OBJ) $(patsubst %,$(ODIR)/%,return_value_test.o)

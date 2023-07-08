@@ -1,4 +1,4 @@
-#include "threadpool.h"
+#include "threadpool_tmpl.h"
 #include "tp_callable.h"
 #include "call_class.h"
 
@@ -52,4 +52,4 @@ threadpool<T>::~threadpool() {
     finalize();
 }
 
-template class threadpool<tp_callable_wrapper>;
+//template class threadpool<tp_callable_wrapper>;
