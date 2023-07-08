@@ -10,10 +10,10 @@
 using std::cout;
 
 int main(void) {
-    threadpool<tp_callable_wrapper> tp(NUM_THREADS);
+    threadpool<call_class> tp(NUM_THREADS);
     for (int i = 0; i < NUM_TASKS; i++) {
         cout << ("queuing job: " + std::to_string(i) + "\n");
-        tp.queue_job(tp_callable_wrapper(new call_class(i), true));
+        tp.queue_job(call_class(i));
     }
 
     return 0;
